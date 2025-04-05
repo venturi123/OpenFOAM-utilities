@@ -833,7 +833,7 @@ function updateIntervalList(src, fig)
         
         % Validate input
         if any(isnan(intervals)) || any(intervals <= 0)
-            warndlg('请输入有效的平均时间间隔列表 (大于0的数值,用逗号分隔)', 'Invalid Input');
+            warndlg('Please enter a valid list of averaging intervals (greater than 0, separated by commas)', 'Invalid Input');
             return;
         end
         
@@ -847,7 +847,7 @@ function updateIntervalList(src, fig)
         set(src, 'String', strjoin(arrayfun(@num2str, intervals, 'UniformOutput', false), ','));
         
     catch
-        warndlg('输入格式错误,请使用逗号分隔的数值列表', 'Invalid Input');
+        warndlg('Invalid input format, please use comma-separated numbers', 'Invalid Input');
     end
 end
 
@@ -860,7 +860,7 @@ function updateTimeRange(src, fig)
         rangeParts = strsplit(rangeStr, ',');
         
         if length(rangeParts) ~= 2
-            warndlg('请输入两个数值表示起止时间', 'Invalid Input');
+            warndlg('Please enter two numbers representing the start and end times', 'Invalid Input');
             return;
         end
         
@@ -868,14 +868,14 @@ function updateTimeRange(src, fig)
         
         % Validate input
         if any(isnan(timeRange)) || timeRange(1) >= timeRange(2)
-            warndlg('请输入有效的时间范围 (起始时间 < 结束时间)', 'Invalid Input');
+            warndlg('Please enter a valid time range (start time < end time)', 'Invalid Input');
             return;
         end
         
         % Check if within data range
         allTime = fig.UserData.time;
         if timeRange(1) < min(allTime) || timeRange(2) > max(allTime)
-            warndlg(sprintf('时间范围超出数据范围 (%.1f 到 %.1f)', min(allTime), max(allTime)), 'Invalid Input');
+            warndlg(sprintf('Time range exceeds data range (%.1f to %.1f)', min(allTime), max(allTime)), 'Invalid Input');
             return;
         end
         
@@ -883,7 +883,7 @@ function updateTimeRange(src, fig)
         fig.UserData.timeRange = timeRange;
         
     catch
-        warndlg('输入格式错误,请使用逗号分隔的两个数值', 'Invalid Input');
+        warndlg('Invalid input format, please use comma-separated two numbers', 'Invalid Input');
     end
 end
 
@@ -900,7 +900,7 @@ function calculateMultipleIntervals(fig)
     intervals = fig.UserData.intervalList;
     
     if isempty(intervals)
-        warndlg('请输入至少一个有效的平均时间间隔', 'Invalid Input');
+        warndlg('Please enter at least one valid averaging interval', 'Invalid Input');
         return;
     end
     
@@ -1002,7 +1002,7 @@ function applySingleInterval(fig, interval_edit)
     
     % Validate input
     if isnan(interval) || interval <= 0
-        warndlg('请输入有效的平均时间间隔 (大于0的数值)', 'Invalid Input');
+        warndlg('Please enter a valid averaging interval (greater than 0)', 'Invalid Input');
         return;
     end
     
@@ -1237,24 +1237,5 @@ function applyAveraging(fig)
     ylabel(axes_data.w_psd, 'PSD (m²/s)', 'FontWeight', 'bold');
     axis(axes_data.w_psd, [min(f_w_raw), max(f_w_raw), min(pxx_w_raw)*0.1, max(pxx_w_raw)*10]);
     hold(axes_data.w_psd, 'off');
-    
-    % % Update turbulence intensity plot
-    % cla(axes_data.ti);
-    
-    % % Calculate turbulence intensity
-    % u_std = std(u_avg);
-    % u_mean = mean(u_avg);
-    % I_u = u_std / u_mean * 100;
-    
-    % % Configure plot appearance
-    % grid(axes_data.ti, 'on');
-    % xlabel(axes_data.ti, 'interval average时长 (s)', 'FontWeight', 'bold');
-    % ylabel(axes_data.ti, '湍流强度Iu (%)', 'FontWeight', 'bold');
-    % title(axes_data.ti, '湍流强度Iu随interval变化曲线', 'FontSize', 12, 'FontWeight', 'bold');
-    
-    % % Add interval values as text labels
-    % text(interval, I_u*1.05, sprintf('%.1f', interval), ...
-    %     'Parent', axes_data.ti, 'FontSize', 8, 'HorizontalAlignment', 'center');
-    
-    % hold(axes_data.ti, 'off');
+
 end

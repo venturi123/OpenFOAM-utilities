@@ -4,7 +4,7 @@ function [time, velocities, locations] = readProbeData(filename, varargin)
     %   [time, velocities, locations] = readProbeData(filename, 'saveToMat', true) 读取并保存到MAT文件
     %   [time, velocities, locations] = readProbeData(filename, 'saveToMat', true, 'matFilename', 'custom.mat') 读取并保存到指定MAT文件
     
-    % 解析输入参数
+    % Parse input parameters
     p = inputParser;
     addRequired(p, 'filename', @ischar);
     addParameter(p, 'saveToMat', false, @islogical);
@@ -14,7 +14,7 @@ function [time, velocities, locations] = readProbeData(filename, varargin)
     saveToMat = p.Results.saveToMat;
     matFilename = p.Results.matFilename;
     
-    % 如果没有指定MAT文件名，则使用与输入文件相同的名称但扩展名为.mat
+    % If no MAT file name is specified, use the same name as the input file but with a .mat extension
     if saveToMat && isempty(matFilename)
         [filepath, name, ~] = fileparts(filename);
         if isempty(filepath)
