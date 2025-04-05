@@ -1,0 +1,27 @@
+# MATLAB specific files
+*.asv
+*.mex*
+*.mat
+*.fig
+slprj/
+sccprj/
+codegen/
+*.autosave
+*.slxc
+
+# Editor backup files
+*~
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Application generated files
+*.log
+*.tmp 
